@@ -1,0 +1,13 @@
+
+@import "~@nativescript/theme/css/core";
+@import "~@nativescript/theme/css/default";
+@import './theme/colors';
+
+Button.-primary {
+    font-size: 18;
+}
+
+TextField {
+    border-width: 3;
+    border-color: $black;
+}

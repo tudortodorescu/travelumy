@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.nativescript.travelumy",
+    "id": "com.todorescu.travelumy",
     "tns-android": {
       "version": "6.3.1"
     },
@@ -8,9 +8,9 @@
       "version": "6.3.0"
     }
   },
-  "description": "NativeScript Application",
-  "license": "SEE LICENSE IN <your-license-filename>",
-  "repository": "<fill-your-repository-here>",
+  "description": "Travelumy App",
+  "license": "SEE LICENSE IN ./LICENSE",
+  "repository": "https://github.com/tudorfis/travelumy",
   "dependencies": {
     "@angular/animations": "~8.2.0",
     "@angular/common": "~8.2.0",
@@ -28,9 +28,12 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
+    "@angular/cli": "^8.3.23",
     "@angular/compiler-cli": "~8.2.0",
+    "@nativescript/schematics": "^1.0.0",
     "@ngtools/webpack": "^8.3.23",
     "nativescript-dev-webpack": "~1.4.0",
+    "node-sass": "^4.13.1",
     "typescript": "~3.5.3"
   },
   "gitHead": "fa98f785df3fba482e5e2a0c76f4be1fa6dc7a14",
