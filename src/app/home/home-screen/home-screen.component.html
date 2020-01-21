@@ -1,5 +1,39 @@
-<FlexboxLayout>
-    <StackLayout>
-        <TextField hint="Choose city/place"></TextField>
-    </StackLayout>
-</FlexboxLayout>
+<GridLayout rows="auto,*,70" columns="*">
+  <FlexboxLayout class="main-page" row="0" col="0">
+    <FlexboxLayout class="app-icon animation-fadein">
+      <Image src="~/images/logo.png"></Image>
+    </FlexboxLayout>
+    <AbsoluteLayout class="search-location animation-fadein animation-pulsate">
+      <Label text="&#xf59f;" class="fas search-icon"></Label>
+      <TextField class="search-input" hint="Where To?"></TextField>
+    </AbsoluteLayout>
+  </FlexboxLayout>
+  <ScrollView class="main-container" row="1" col="0">
+      <FlexboxLayout class="landscape-page">
+        <Label
+          class="landscape-title"
+          text="Featured Locations. Most Popular"
+        ></Label>
+        <StackLayout
+          class="landscape-image-container animation-slideup"
+          *ngFor="let landscape of landscapeList"
+        >
+          <StackLayout
+            class="landscape-image"
+            [backgroundImage]="landscape.landscapeImage"
+          ></StackLayout>
+          <Label
+            class="landscape-caption"
+            [text]="landscape.landscapeCaption"
+          ></Label>
+        </StackLayout>
+      </FlexboxLayout>
+  </ScrollView>
+  <FlexboxLayout class="bottom-container" row="2" col="0">
+    <Button
+      text="Sign-up"
+      class="-rounded-md -primary"
+      horizontalAlignment="center"
+    ></Button>
+  </FlexboxLayout>
+</GridLayout>

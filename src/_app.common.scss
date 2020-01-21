@@ -2,12 +2,15 @@
 @import "~@nativescript/theme/css/core";
 @import "~@nativescript/theme/css/default";
 @import './theme/colors';
+@import './theme/animations';
 
-Button.-primary {
-    font-size: 18;
+.far {
+    font-family: "Font Awesome 5 Free", "fa-regular-400";
+    font-weight: 400;
 }
 
-TextField {
-    border-width: 3;
-    border-color: $black;
+.fas {
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
+    font-weight: 900;
 }
+

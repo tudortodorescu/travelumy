@@ -1,1 +1,89 @@
-/* Add mobile styles for the component here.  */
+@import '../../../theme/colors';
+
+GridLayout {
+  FlexboxLayout.main-page {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30 0 15 0;
+
+    FlexboxLayout.app-icon {
+      image {
+        height: 85;
+        width: 85;
+        margin: 15 auto;
+      }
+    }
+
+    AbsoluteLayout.search-location {
+      margin: 20px 0;
+      padding: 0;
+      width: 80%;
+      height: auto;
+
+      Label.search-icon {
+        top: 23;
+        left: 20;
+        color: $gray;
+        font-size: 20;
+      }
+      TextField.search-input {
+        width: 100%;
+        margin: 0;
+        border-width: 1;
+        border-radius: 15;
+        border-color: $gray;
+        padding: 20 20 20 60;
+        font-size: 26;
+        text-decoration: none;
+        font-family: 'Camping Holiday';
+        letter-spacing: 0.05;
+      }
+    }
+  }
+  ScrollView.main-container {
+    FlexboxLayout.landscape-page {
+      width: 80%;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      label.landscape-title {
+        font-size: 28;
+        font-family: 'Camping Holiday';
+        margin: 5 auto;
+        color: $primary;
+      }
+
+      StackLayout.landscape-image-container {
+        margin: 5 0;
+        label.landscape-caption {
+          font-size: 20;
+          font-family: 'Camping Holiday';
+          letter-spacing: 0.05;
+          color: $secondary;
+        }
+        StackLayout.landscape-image {
+          background-repeat: no-repeat;
+          background-position: top left;
+          background-size: cover;
+          width: 100%;
+          height: 150;
+        }
+      }
+    }
+  }
+  FlexboxLayout.bottom-container {
+    height: 100%;
+    background: $white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    Button {
+      font-size: 22;
+      font-family: 'Camping Holiday';
+      padding: 5 20;
+    }
+  }
+}
