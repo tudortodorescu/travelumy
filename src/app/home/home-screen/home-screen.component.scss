@@ -77,8 +77,9 @@ GridLayout {
     height: 100%;
     background: $white;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-top: 5;
     background: linear-gradient(to bottom, #fff,#fff, #fff, #ddd);
 
     Button {

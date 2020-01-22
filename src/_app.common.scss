@@ -15,14 +15,26 @@
 }
 
 .primary-color {
+    color: $primary;
+}
+
+.primary-bgcolor {
     background: $primary;
 }
 
 .secondary-color {
+    color: $secondary;
+}
+
+.secondary-bgcolor {
     background: $secondary;
 }
 
 .third-color {
+    color: $third;
+}
+
+.third-bgcolor {
     background: $third;
 }
 

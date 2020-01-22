@@ -1,4 +1,4 @@
-<GridLayout rows="auto,*,70" columns="*">
+<GridLayout rows="auto,*,100" columns="*">
   <FlexboxLayout class="main-page" row="0" col="0">
     <FlexboxLayout class="app-icon animation-fadein">
       <Image src="~/images/logo.png"></Image>
@@ -32,14 +32,14 @@
   <FlexboxLayout class="bottom-container" row="2" col="0">
     <Button
       text="Login"
-      class="-rounded-md -primary secondary-color"
+      class="-rounded-md -primary secondary-bgcolor"
       margin="0"
       horizontalAlignment="center"
       [nsRouterLink]="['auth-login']"
       pageTransition="slideRight"
     ></Button>
     <Label
-      class="primary-color text-center"
+      class="third-color text-center"
       text="Or, register a FREE account now"
       [nsRouterLink]="['auth-register']"
       pageTransition="slideRight"
