@@ -5,12 +5,12 @@ GridLayout {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 30 0 15 0;
+    padding: 30 0 10 0;
 
     FlexboxLayout.app-icon {
-      image {
-        height: 85;
-        width: 85;
+      Image {
+        height: 70;
+        width: 70;
         margin: 15 auto;
       }
     }
@@ -22,7 +22,7 @@ GridLayout {
       height: auto;
 
       Label.search-icon {
-        top: 23;
+        top: 18;
         left: 20;
         color: $gray;
         font-size: 20;
@@ -33,10 +33,10 @@ GridLayout {
         border-width: 1;
         border-radius: 15;
         border-color: $gray;
-        padding: 20 20 20 60;
+        padding: 15 15 15 60;
         font-size: 26;
         text-decoration: none;
-        font-family: 'Camping Holiday';
+        font-family: "Camping Holiday";
         letter-spacing: 0.05;
       }
     }
@@ -48,18 +48,18 @@ GridLayout {
       justify-content: flex-start;
       align-items: center;
 
-      label.landscape-title {
+      Label.landscape-title {
         font-size: 28;
-        font-family: 'Camping Holiday';
+        font-family: "Camping Holiday";
         margin: 5 auto;
         color: $primary;
       }
 
       StackLayout.landscape-image-container {
         margin: 5 0;
-        label.landscape-caption {
+        Label.landscape-caption {
           font-size: 20;
-          font-family: 'Camping Holiday';
+          font-family: "Camping Holiday";
           letter-spacing: 0.05;
           color: $secondary;
         }
@@ -79,10 +79,11 @@ GridLayout {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(to bottom, #fff,#fff, #fff, #ddd);
 
     Button {
       font-size: 22;
-      font-family: 'Camping Holiday';
+      font-family: "Camping Holiday";
       padding: 5 20;
     }
   }

@@ -9,31 +9,40 @@
     </AbsoluteLayout>
   </FlexboxLayout>
   <ScrollView class="main-container" row="1" col="0">
-      <FlexboxLayout class="landscape-page">
-        <Label
-          class="landscape-title"
-          text="Featured Locations. Most Popular"
-        ></Label>
+    <FlexboxLayout class="landscape-page">
+      <Label
+        class="landscape-title"
+        text="Featured Locations. Most Popular"
+      ></Label>
+      <StackLayout
+        class="landscape-image-container animation-slideup"
+        *ngFor="let landscape of landscapeList"
+      >
         <StackLayout
-          class="landscape-image-container animation-slideup"
-          *ngFor="let landscape of landscapeList"
-        >
-          <StackLayout
-            class="landscape-image"
-            [backgroundImage]="landscape.landscapeImage"
-          ></StackLayout>
-          <Label
-            class="landscape-caption"
-            [text]="landscape.landscapeCaption"
-          ></Label>
-        </StackLayout>
-      </FlexboxLayout>
+          class="landscape-image"
+          [backgroundImage]="landscape.landscapeImage"
+        ></StackLayout>
+        <Label
+          class="landscape-caption"
+          [text]="landscape.landscapeCaption"
+        ></Label>
+      </StackLayout>
+    </FlexboxLayout>
   </ScrollView>
   <FlexboxLayout class="bottom-container" row="2" col="0">
     <Button
-      text="Sign-up"
-      class="-rounded-md -primary"
+      text="Login"
+      class="-rounded-md -primary secondary-color"
+      margin="0"
       horizontalAlignment="center"
+      [nsRouterLink]="['auth-login']"
+      pageTransition="slideRight"
     ></Button>
+    <Label
+      class="primary-color text-center"
+      text="Or, register a FREE account now"
+      [nsRouterLink]="['auth-register']"
+      pageTransition="slideRight"
+    ></Label>
   </FlexboxLayout>
 </GridLayout>
