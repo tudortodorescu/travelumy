@@ -35,8 +35,7 @@
       class="-rounded-md -primary secondary-bgcolor"
       margin="0"
       horizontalAlignment="center"
-      [nsRouterLink]="['auth-login']"
-      pageTransition="slideRight"
+      (tap)="onLogin()"
     ></Button>
     <Label
       class="third-color text-center"

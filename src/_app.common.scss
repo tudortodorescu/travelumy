@@ -1,41 +1,52 @@
-
 @import '~@nativescript/theme/css/core';
 @import '~@nativescript/theme/css/default';
 @import './theme/colors';
 @import './theme/animations';
+@import './theme/forms';
 
-.far {
-    font-family: 'Font Awesome 5 Free', 'fa-regular-400';
-    font-weight: 400;
-}
-
-.fas {
-    font-family: 'Font Awesome 5 Free', 'fa-solid-900';
-    font-weight: 900;
-}
-
-.primary-color {
-    color: $primary;
-}
-
-.primary-bgcolor {
-    background: $primary;
-}
-
-.secondary-color {
-    color: $secondary;
-}
-
-.secondary-bgcolor {
-    background: $secondary;
-}
-
-.third-color {
+ActionBar {
+    background-color: $white;
     color: $third;
 }
 
-.third-bgcolor {
-    background: $third;
+.far {
+  font-family: 'Font Awesome 5 Free', 'fa-regular-400';
+  font-weight: 400;
 }
 
+.fas {
+  font-family: 'Font Awesome 5 Free', 'fa-solid-900';
+  font-weight: 900;
+}
 
+.primary-color {
+  color: $primary;
+}
+
+.primary-bgcolor {
+  background: $primary;
+}
+
+.secondary-color {
+  color: $secondary;
+}
+
+.secondary-bgcolor {
+  background: $secondary;
+}
+
+.third-color {
+  color: $third;
+}
+
+.third-bgcolor {
+  background: $third;
+}
+
+.drawer-container {
+  margin-top: 23;
+  background: linear-gradient(140deg, $secondary, $primary);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

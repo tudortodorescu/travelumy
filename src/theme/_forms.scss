@@ -1,0 +1,29 @@
+.form {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+
+    .input-field {
+      width: 80%;
+
+      .label {
+        color: $primary;
+        font-weight: bold;
+      }
+      .label.invalid {
+        color: red;
+      }
+
+      .input {
+        border-bottom-width: 2;
+        border-bottom-color: $primary;
+        width: 100%;
+      }
+
+    }
+  }
+
+  .ng-invalid.ng-touched {
+    border-bottom-color: red;
+    color: red;
+  }

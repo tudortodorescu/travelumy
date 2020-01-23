@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
+import { UIService } from '~/app/shared/ui/ui.service';
 
 interface LandscapeModel {
     landscapeImage: string;
@@ -32,11 +33,18 @@ export class HomeScreenComponent implements OnInit {
     ];
 
     constructor(
-        private page: Page
+        private page: Page,
+        private uiService: UIService
     ) { }
 
     ngOnInit() {
         this.page.actionBarHidden = true;
+    }
+
+    onLogin() {
+        this.uiService.navigateTo('auth-login', true, 'slideRight');
+        // [nsRouterLink]="['auth-login']"
+        // pageTransition="slideRight"
     }
 
 }
