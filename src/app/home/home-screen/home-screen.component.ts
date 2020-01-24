@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { UIService } from '~/app/shared/ui/ui.service';
+import { UiRouterTransitionEffect } from '~/app/shared/ui/common';
+import { Router } from '@angular/router';
 
 interface LandscapeModel {
     landscapeImage: string;
@@ -34,7 +36,8 @@ export class HomeScreenComponent implements OnInit {
 
     constructor(
         private page: Page,
-        private uiService: UIService
+        private uiService: UIService,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -42,9 +45,11 @@ export class HomeScreenComponent implements OnInit {
     }
 
     onLogin() {
-        this.uiService.navigateTo('auth-login', true, 'slideRight');
-        // [nsRouterLink]="['auth-login']"
-        // pageTransition="slideRight"
+        this.uiService.navigateTo('auth/login', UiRouterTransitionEffect.slideRight);
+    }
+
+    onRegister() {
+        this.uiService.navigateTo('auth/register', UiRouterTransitionEffect.slideRight);
     }
 
 }

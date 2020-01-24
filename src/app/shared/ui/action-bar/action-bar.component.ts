@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { RouterExtensions } from 'nativescript-angular/router';
 import { Page, isAndroid, isIOS } from 'tns-core-modules/ui/page/page';
 import { UIService } from '../ui.service';
+import { UiThemeColors } from '../common';
 
 declare var android: any;
 
@@ -12,13 +12,13 @@ declare var android: any;
 })
 export class ActionBarComponent {
     @Input() title: string;
-    @Input() showBackButton: boolean = true;
-    @Input() hasMenu: boolean = true;
+    @Input() showBackButton: boolean = false;
+    @Input() hasMenu: boolean = false;
+    @Input() hasHome: boolean = false;
     isAndroid: boolean = isAndroid;
     isIOS: boolean = isIOS;
 
     constructor(
-        private router: RouterExtensions,
         private page: Page,
         private uiService: UIService
     ) { }
@@ -37,7 +37,7 @@ export class ActionBarComponent {
             const backButton = androidToolbar.getNavigationIcon();
             if (backButton) {
                 backButton.setColorFilter(
-                    android.graphics.Color.parseColor('#636363'),
+                    android.graphics.Color.parseColor(UiThemeColors.primary),
                     (<any>android.graphics).PorterDuff.Mode.SRC_ATOP
                 );
             }
@@ -45,12 +45,14 @@ export class ActionBarComponent {
     }
 
     onGoBack() {
-        if (this.uiService.previousRoute) {
-            this.router.navigate([this.uiService.previousRoute]);
-        }
+        this.uiService.goBack();
     }
 
     onToggleMenu() {
         this.uiService.toggleDrawer();
+    }
+
+    onHome() {
+        this.uiService.goHome();
     }
 }

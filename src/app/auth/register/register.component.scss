@@ -1,0 +1,18 @@
+@import "../../../theme/colors";
+
+FlexboxLayout.register-main-page {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  label.accepting-tos-privacy span {
+    font-size: 16;
+    color: $gray;
+  }
+
+  .form {
+    .input-field {
+      width: 90%;
+    }
+  }
+}

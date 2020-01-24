@@ -1,1 +1,13 @@
-/* Add mobile styles for the component here.  */
+@import '../../../../theme/colors';
+
+ActionBar {
+    background-color: $white;
+    color: $secondary;
+    font-family: 'Afternoon Coffee';
+    font-size: 20;
+}
+
+Label.fas, Label.far {
+    color: $primary;
+    font-size: 22;
+}

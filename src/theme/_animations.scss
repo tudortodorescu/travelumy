@@ -13,12 +13,12 @@
 .animation-slideup {
     animation-name: slideup;
     animation-iteration-count: 1;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
 }
 
 @keyframes slideup {
-    from { transform: translateY(-100); }
+    from { transform: translateY(100); }
     to { transform: translateY(0); }
 }
 

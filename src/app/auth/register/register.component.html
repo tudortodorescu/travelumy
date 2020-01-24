@@ -1,1 +1,142 @@
-<Button text="register works!" class="btn btn-primary"></Button>
+<ns-action-bar
+  title="Register"
+  [showBackButton]="true"
+  [hasMenu]="false"
+  [hasHome]="true"
+></ns-action-bar>
+<ScrollView>
+  <FlexboxLayout class="register-main-page">
+    <ns-app-icon></ns-app-icon>
+    <StackLayout
+      [formGroup]="form"
+      class="form animation-slideup"
+      marginTop="50"
+    >
+      <StackLayout orientation="horizontal" width="90%">
+        <StackLayout class="input-field" width="47%" margin="15 3% 15 0">
+          <Label
+            class="label"
+            text="First name"
+            [ngClass]="{ invalid: !firstNameControlIsValid }"
+          ></Label>
+          <TextField
+            class="input"
+            hint="Please provide your first name"
+            returnKeyType="next"
+            formControlName="firstName"
+            [isEnabled]="!isLoading"
+            #firstNameEl
+          ></TextField>
+          <Label
+            *ngIf="!firstNameControlIsValid"
+            textWrap="true"
+            text="*Please enter your first name. It's required"
+            color="red"
+          ></Label>
+        </StackLayout>
+        <StackLayout class="input-field" width="47%" margin="15 0 15 3%">
+          <Label
+            class="label"
+            text="Last name"
+            [ngClass]="{ invalid: !lastNameControlIsValid }"
+          ></Label>
+          <TextField
+            class="input"
+            hint="Please provide your last name"
+            returnKeyType="next"
+            formControlName="lastName"
+            [isEnabled]="!isLoading"
+            #lastNameEl
+          ></TextField>
+          <Label
+            *ngIf="!lastNameControlIsValid"
+            textWrap="true"
+            text="*Please enter your last name too. It's required"
+            color="red"
+          ></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="input-field">
+        <Label
+          class="label"
+          text="Email address"
+          [ngClass]="{ invalid: !emailControlIsValid }"
+        ></Label>
+        <TextField
+          class="input"
+          returnKeyType="next"
+          keyboardType="email"
+          [autocorrect]="false"
+          autocapitalizationType="none"
+          formControlName="email"
+          [isEnabled]="!isLoading"
+          #emailEl
+        ></TextField>
+        <Label
+          *ngIf="!emailControlIsValid"
+          textWrap="true"
+          text="*Please enter your email to register. You'll receive a confirmation email"
+          color="red"
+        ></Label>
+      </StackLayout>
+      <StackLayout class="input-field" marginTop="30">
+        <Label
+          class="label"
+          text="Password"
+          [ngClass]="{ invalid: !passwordControlIsValid }"
+        ></Label>
+        <TextField
+          class="input"
+          returnKeyType="done"
+          [autocorrect]="false"
+          autocapitalizationType="none"
+          [secure]="true"
+          hint="Min 6 characters"
+          formControlName="password"
+          [isEnabled]="!isLoading"
+          #passwordEl
+        ></TextField>
+        <Label
+          *ngIf="!passwordControlIsValid"
+          textWrap="true"
+          text="*Please choose your desired password. Min. 6 characters"
+          color="red"
+        ></Label>
+      </StackLayout>
+      <StackLayout width="90%" marginTop="30">
+        <Label class="accepting-tos-privacy" textWrap="true" (tap)="onTermsAndConditions()">
+          <FormattedString>
+            <Span text="To create an account you have to accept our "></Span>
+            <Span
+              text="Terms and Conditions"
+              class="third-color text-underline"
+              (tap)="onTermsAndConditions()"
+            ></Span>
+            <Span text=" and our "></Span>
+            <Span
+              text="Privacy Policy"
+              class="third-color text-underline"
+              (tap)="onPrivacyPolicy()"
+            ></Span>
+            <Span
+              text=". Continuing means you agree with all of the above."
+            ></Span>
+          </FormattedString>
+        </Label>
+      </StackLayout>
+      <StackLayout class="input-field" marginTop="5">
+        <Button
+          class="-primary -rounded-lg secondary-bgcolor"
+          marginTop="20"
+          (tap)="onSubmit()"
+          text="Register a FREE Account"
+          *ngIf="!isLoading"
+        ></Button>
+        <ActivityIndicator
+          [busy]="isLoading"
+          marginTop="30"
+        ></ActivityIndicator>
+      </StackLayout>
+    </StackLayout>
+  </FlexboxLayout>
+</ScrollView>

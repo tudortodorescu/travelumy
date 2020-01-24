@@ -1,8 +1,6 @@
-<GridLayout rows="auto,*,100" columns="*">
-  <FlexboxLayout class="main-page" row="0" col="0">
-    <FlexboxLayout class="app-icon animation-fadein">
-      <Image src="~/images/logo.png"></Image>
-    </FlexboxLayout>
+<GridLayout rows="auto,*,90" columns="*">
+  <FlexboxLayout class="home-screen-main-page" row="0" col="0">
+    <ns-app-icon></ns-app-icon>
     <AbsoluteLayout class="search-location animation-fadein animation-pulsate">
       <Label text="&#xf59f;" class="fas search-icon"></Label>
       <TextField class="search-input" hint="Where To?"></TextField>
@@ -40,8 +38,7 @@
     <Label
       class="third-color text-center"
       text="Or, register a FREE account now"
-      [nsRouterLink]="['auth-register']"
-      pageTransition="slideRight"
+      (tap)="onRegister()"
     ></Label>
   </FlexboxLayout>
 </GridLayout>

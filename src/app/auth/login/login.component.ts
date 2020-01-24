@@ -3,12 +3,13 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { AuthService } from '../auth.service';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { UiRouterTransitionEffect } from '~/app/shared/ui/common';
+import { UIService } from '~/app/shared/ui/ui.service';
 
 @Component({
     selector: 'ns-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
     private _subscriptionList: Subscription[] = [];
@@ -16,26 +17,26 @@ export class LoginComponent implements OnInit, OnDestroy {
     isLoading: boolean = false;
     emailControlIsValid: boolean = true;
     passwordControlIsValid: boolean = true;
-    @ViewChild('passwordEl', { static: false }) passowrdEl: ElementRef<TextField>;
+    @ViewChild('passwordEl', { static: false }) passwordEl: ElementRef<TextField>;
     @ViewChild('emailEl', { static: false }) emailEl: ElementRef<TextField>;
 
     constructor(
-        private router: RouterExtensions,
         private authService: AuthService,
-        private changeDetection: ChangeDetectorRef
+        private changeDetection: ChangeDetectorRef,
+        private uiService: UIService
     ) { }
 
     ngOnInit() {
         this.form = new FormGroup({
             email: new FormControl(null, {
-                updateOn: 'change',
+                updateOn: 'blur',
                 validators: [
                     Validators.required,
                     Validators.email
                 ]
             }),
             password: new FormControl(null, {
-                updateOn: 'change',
+                updateOn: 'blur',
                 validators: [
                     Validators.required,
                 ]
@@ -61,10 +62,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
+        if (!this.form.get('email').valid) this.emailControlIsValid = false;
+        if (!this.form.get('password').valid) this.passwordControlIsValid = false;
         if (!this.form.valid) return;
 
         this.emailEl.nativeElement.dismissSoftInput();
-        this.passowrdEl.nativeElement.dismissSoftInput();
+        this.passwordEl.nativeElement.dismissSoftInput();
         this.isLoading = true;
         this.changeDetection.detectChanges();
 
@@ -76,14 +79,21 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         // to be implemented
         // this.authService.signIn(email, password).subscribe(() => {
-        //     this.router.navigate(['/home-screen']);
         //     this.isLoading = false;
         //     this.changeDetection.detectChanges();
-
         // }, err => {
         //     this.isLoading = false;
         //     this.changeDetection.detectChanges();
         // })
 
     }
+
+    onForgotPassword() {
+        this.uiService.navigateTo('auth/forgot-password', UiRouterTransitionEffect.slideRight);
+    }
+
+    onRegister() {
+        this.uiService.navigateTo('auth/register', UiRouterTransitionEffect.slideRight);
+    }
+
 }

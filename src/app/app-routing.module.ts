@@ -1,14 +1,13 @@
-import { NgModule } from "@angular/core";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
-import { Routes } from "@angular/router";
-import { HomeScreenComponent } from "./home/home-screen/home-screen.component";
-import { LoginComponent } from "./auth/login/login.component";
-import { RegisterComponent } from "./auth/register/register.component";
+import { NgModule } from '@angular/core';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { Routes } from '@angular/router';
+import { HomeModule } from './home/home.module';
+import { AuthModule } from './auth/auth.module';
 
 const routes: Routes = [
-    { path: "", component: HomeScreenComponent },
-    { path: "auth-login", component: LoginComponent },
-    { path: "auth-register", component: RegisterComponent }
+    { path: 'home', loadChildren: () => HomeModule },
+    { path: 'auth', loadChildren: () => AuthModule },
+    { path: '', redirectTo: '/auth/register', pathMatch: 'full' }
 ];
 
 @NgModule({
