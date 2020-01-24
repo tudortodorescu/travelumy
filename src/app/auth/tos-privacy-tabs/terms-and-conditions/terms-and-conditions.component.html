@@ -4,8 +4,8 @@
   [hasMenu]="false"
   [hasHome]="false"
 ></ns-action-bar>
-<ScrollView>
+<ScrollView androidTabsPosition="bottom">
   <FlexboxLayout class="terms-and-conditions-main-page">
-    <Label [text]="termsAndConditionsText" textWrap="true"></Label>
+    <HtmlView [html]="tosHtml"></HtmlView>
   </FlexboxLayout>
 </ScrollView>

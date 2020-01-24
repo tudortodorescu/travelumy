@@ -1,9 +1,9 @@
-import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
-import { SharedUiModule } from "../shared/ui/sharedUi.module";
-import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { Routes } from "@angular/router";
+import { SharedUiModule } from '../shared/ui/sharedUi.module';
+import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { Routes } from '@angular/router';
 
 const routes: Routes = [
     {

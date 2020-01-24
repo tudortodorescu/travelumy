@@ -1,15 +1,17 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { AuthService } from '../auth.service';
 import { UIService } from '~/app/shared/ui/ui.service';
-import { UiRouterTransitionEffect } from '~/app/shared/ui/common';
+import { UiRouterTransitionEffect } from '~/app/shared/common';
+import { RegisterService, RegisterData } from './register.service';
 
 @Component({
-  selector: 'ns-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'ns-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
     private _subscriptionList: Subscription[] = [];
@@ -27,32 +29,33 @@ export class RegisterComponent implements OnInit, OnDestroy {
     constructor(
         private authService: AuthService,
         private changeDetection: ChangeDetectorRef,
-        private uiService: UIService
+        private uiService: UIService,
+        private registerService: RegisterService
     ) { }
 
     ngOnInit() {
         this.form = new FormGroup({
             firstName: new FormControl(null, {
-                updateOn: 'blur',
+                updateOn: 'change',
                 validators: [
                     Validators.required
                 ]
             }),
             lastName: new FormControl(null, {
-                updateOn: 'blur',
+                updateOn: 'change',
                 validators: [
                     Validators.required
                 ]
             }),
             email: new FormControl(null, {
-                updateOn: 'blur',
+                updateOn: 'change',
                 validators: [
                     Validators.required,
                     Validators.email
                 ]
             }),
             password: new FormControl(null, {
-                updateOn: 'blur',
+                updateOn: 'change',
                 validators: [
                     Validators.required,
                     Validators.minLength(6)
@@ -72,6 +75,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
             }),
             this.form.get('password').statusChanges.subscribe(status => {
                 this.passwordControlIsValid = status === 'VALID';
+            }),
+
+            this.registerService.registerData.pipe(
+                filter(data => !!data)
+            ).subscribe((registerData: RegisterData) => {
+                this.form.patchValue({
+                    firstName: registerData.firstName,
+                    lastName: registerData.lastName,
+                    email: registerData.email,
+                    password: registerData.password
+                }, { emitEvent: false });
             })
         )
     }
@@ -84,48 +98,63 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
     }
 
-    onSubmit() {
+    private _setIsLoading(isLoading: boolean) {
+        this.isLoading = isLoading;
+        this.changeDetection.detectChanges();
+    }
+
+    private _setAllControlsToValid() {
+        this.firstNameControlIsValid = true;
+        this.lastNameControlIsValid = true;
+        this.emailControlIsValid = true;
+        this.passwordControlIsValid = true;
+    }
+
+    private _buildRegisterData(): RegisterData {
+        const registerData = <RegisterData>{
+            firstName: (this.form.get('firstName').value || ''),
+            lastName: (this.form.get('lastName').value || ''),
+            email: (this.form.get('email').value || ''),
+            password: (this.form.get('password').value || '')
+        };
+        return registerData;
+    }
+
+    private _checkFormControlsValid() {
         if (!this.form.get('firstName').valid) this.firstNameControlIsValid = false;
         if (!this.form.get('lastName').valid) this.lastNameControlIsValid = false;
         if (!this.form.get('email').valid) this.emailControlIsValid = false;
         if (!this.form.get('password').valid) this.passwordControlIsValid = false;
+    }
+
+    onTosPrivacy() {
+        const registerData = this._buildRegisterData();
+        this.registerService.setRegisterData(registerData);
+        this.uiService.navigateTo('auth/tos-privacy-tabs', UiRouterTransitionEffect.slideTop);
+    }
+
+    onSubmit() {
+        this._checkFormControlsValid();
         if (!this.form.valid) return;
 
         this.emailEl.nativeElement.dismissSoftInput();
         this.passwordEl.nativeElement.dismissSoftInput();
 
-        this.isLoading = true;
-        this.changeDetection.detectChanges();
+        this._setIsLoading(true);
+        this._setAllControlsToValid();
 
-        const firstName = this.form.get('firstName').value;
-        const lastName = this.form.get('lastName').value;
-        const email = this.form.get('email').value;
-        const password = this.form.get('password').value;
-
-        this.firstNameControlIsValid = true;
-        this.lastNameControlIsValid = true;
-        this.emailControlIsValid = true;
-        this.passwordControlIsValid = true;
-
-        // to be implemented
-        // this.authService.signUp(firstName, lastName, email, password).subscribe(() => {
-        //     this.isLoading = false;
-        //     this.changeDetection.detectChanges();
-        // }, err => {
-        //     this.isLoading = false;
-        //     this.changeDetection.detectChanges();
-        // })
+        const registerData = this._buildRegisterData();
+        this.authService.register(registerData).subscribe(() => {
+            alert("Congratulations! You just signed-up and have access to all the cool features!");
+            this.uiService.navigateTo('home', UiRouterTransitionEffect.flip);
+            this._setIsLoading(false);
+        }, err => {
+            alert("OOOPS! Something bad happened. Don't worry our technical team will fix it and you'll be able to register soon.")
+            this._setIsLoading(false);
+        })
 
     }
 
-    onTermsAndConditions() {
-        console.log('onTermsAndConditions()');
-        this.uiService.navigateTo('auth/terms-and-conditions', UiRouterTransitionEffect.slideTop);
-    }
 
-    onPrivacyPolicy() {
-        console.log('onPrivacyPolicy()');
-        this.uiService.navigateTo('auth/privacy-policy', UiRouterTransitionEffect.slideTop);
-    }
 
 }

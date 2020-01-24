@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { AuthService } from '../auth.service';
-import { UiRouterTransitionEffect } from '~/app/shared/ui/common';
+import { UiRouterTransitionEffect } from '~/app/shared/common';
 import { UIService } from '~/app/shared/ui/ui.service';
 
 @Component({

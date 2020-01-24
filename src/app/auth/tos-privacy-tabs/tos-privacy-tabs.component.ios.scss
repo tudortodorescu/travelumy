@@ -1,0 +1,6 @@
+@import '../../../theme/colors';
+
+TabView {
+  selected-tab-text-color: $secondary;
+  tab-text-color: $primary;
+}

@@ -1,6 +1,6 @@
 import { Component, ViewRef, ChangeDetectorRef } from '@angular/core';
 import { UIService } from '../ui.service';
-import { UiRouterTransitionEffect } from '../common';
+import { UiRouterTransitionEffect } from '../../common';
 import * as app from 'tns-core-modules/application'
 import { getOrientation } from 'nativescript-orientation';
 

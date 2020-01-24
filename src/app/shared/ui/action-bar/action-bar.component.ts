@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Page, isAndroid, isIOS } from 'tns-core-modules/ui/page/page';
 import { UIService } from '../ui.service';
-import { UiThemeColors } from '../common';
+import { UiThemeColors } from '../../common';
 
 declare var android: any;
 

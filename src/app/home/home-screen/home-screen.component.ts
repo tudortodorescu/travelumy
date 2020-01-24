@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { UIService } from '~/app/shared/ui/ui.service';
-import { UiRouterTransitionEffect } from '~/app/shared/ui/common';
+import { UiRouterTransitionEffect } from '~/app/shared/common';
 import { Router } from '@angular/router';
 
 interface LandscapeModel {

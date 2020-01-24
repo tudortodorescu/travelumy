@@ -5,11 +5,11 @@
   [hasHome]="true"
 ></ns-action-bar>
 <ScrollView>
-  <FlexboxLayout class="register-main-page">
+  <FlexboxLayout class="register-main-page animation-slideup">
     <ns-app-icon></ns-app-icon>
     <StackLayout
       [formGroup]="form"
-      class="form animation-slideup"
+      class="form"
       marginTop="50"
     >
       <StackLayout orientation="horizontal" width="90%">
@@ -103,20 +103,18 @@
           color="red"
         ></Label>
       </StackLayout>
-      <StackLayout width="90%" marginTop="30">
-        <Label class="accepting-tos-privacy" textWrap="true" (tap)="onTermsAndConditions()">
+      <StackLayout width="95%" marginTop="30">
+        <Label class="accepting-tos-privacy gray-color" textWrap="true" (tap)="onTosPrivacy()">
           <FormattedString>
             <Span text="To create an account you have to accept our "></Span>
             <Span
               text="Terms and Conditions"
               class="third-color text-underline"
-              (tap)="onTermsAndConditions()"
             ></Span>
             <Span text=" and our "></Span>
             <Span
               text="Privacy Policy"
               class="third-color text-underline"
-              (tap)="onPrivacyPolicy()"
             ></Span>
             <Span
               text=". Continuing means you agree with all of the above."

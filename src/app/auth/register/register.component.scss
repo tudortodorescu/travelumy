@@ -1,12 +1,13 @@
-@import "../../../theme/colors";
+@import '../../../theme/colors';
 
 FlexboxLayout.register-main-page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  label.accepting-tos-privacy span {
-    font-size: 16;
+  Label.accepting-tos-privacy,
+  Label.accepting-tos-privacy Span {
+    font-size: 13;
     color: $gray;
   }
 

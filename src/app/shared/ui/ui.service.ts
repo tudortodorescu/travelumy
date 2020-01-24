@@ -1,7 +1,7 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { UiRouterTransitionEffect } from './common';
+import { UiRouterTransitionEffect } from '../common';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { NavigationOptions } from '@nativescript/angular/router/ns-location-strategy';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -67,6 +67,10 @@ export class UIService {
 
     goBack() {
         if (this.previousRoute) {
+            if (this.previousRoute.indexOf('(') !== -1 || this.previousRoute.indexOf(':') !== -1) {
+                this.previousRoute = '/';
+            }
+
             const destinationUrl = this.previousRoute;
             this.previousRoute = this.router.url;
 
@@ -81,6 +85,15 @@ export class UIService {
     goHome() {
         this.routerExtensions.navigate([''], <NavigationOptions>{
             transition: { name: UiRouterTransitionEffect.fade },
+            animated: true,
+            clearHistory: true
+        });
+    }
+
+    goLogin() {
+        this.previousRoute = null;
+        this.routerExtensions.navigate(['/auth/login'], {
+            transition: { name: UiRouterTransitionEffect.slideBottom },
             animated: true,
             clearHistory: true
         });
