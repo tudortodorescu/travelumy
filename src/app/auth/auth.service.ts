@@ -1,17 +1,16 @@
-import { Injectable } from "@angular/core";
-import { RegisterData, RegisterService } from "./register/register.service";
-import { HttpClient } from "@angular/common/http";
-import { Observable, BehaviorSubject, throwError, of } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { RegisterData, RegisterService } from './register/register.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { alert } from 'tns-core-modules/ui/dialogs';
-import { getUTCLocalDate } from "~/app/shared/common";
-import { User, UserModel } from "./user.model";
+import { getUTCLocalDate } from '~/app/shared/common';
+import { User, UserModel } from './user.model';
 import { setString, getString, hasKey, remove } from 'tns-core-modules/application-settings';
-import { UIService } from "../shared/ui/ui.service";
+import { UIService } from '../shared/ui/ui.service';
+import { FIREBASE_API_KEY, FIREBASE_API_URL, FIREBASE_API_DB, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 
-const FIREBASE_API_KEY = 'AIzaSyB9TrLghrwxBYs8uVtmwJfN1JpCF6YJplY';
-const FIREBASE_API_URL = 'https://identitytoolkit.googleapis.com/v1/accounts';
-const FIREBASE_API_USERS_URL = 'https://travelumy.firebaseio.com/travelumy/users';
+
 
 interface FirebaseAuthenticateRequest {
     email: string;
@@ -34,6 +33,7 @@ interface FirebaseAuthenticateResponse {
 export class AuthService {
     private _user = new BehaviorSubject<User>(null);
     private _tokenExpirationTimer: number;
+    private _tempLoginResData: FirebaseAuthenticateResponse;
 
     constructor(
         private httpClient: HttpClient,
@@ -66,7 +66,7 @@ export class AuthService {
                 alert('The user account has been disabled by an administrator.');
                 break;
             default:
-                alert('Unknown error. Please check server connection.');
+                alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
         }
     }
 
@@ -91,8 +91,58 @@ export class AuthService {
         return of(false);
     }
 
-    register(registerData: RegisterData) {
-        if (!registerData.email || !registerData.password) return;
+    login(email: string, password: string): Observable<boolean> {
+        if (!email || !password) return of(false);
+
+        return this.httpClient.post(`${FIREBASE_API_URL}:signInWithPassword?key=${FIREBASE_API_KEY}`, {
+            email: email,
+            password: password,
+            returnSecureToken: true
+        } as FirebaseAuthenticateRequest).pipe(
+            catchError(errorRes => {
+                this._handleError(errorRes.error.error.message);
+                return throwError(errorRes);
+            }),
+            switchMap((resData: FirebaseAuthenticateResponse) => {
+                if (resData && resData.idToken) {
+                    this._tempLoginResData = resData;
+
+                    return this.httpClient.get(
+                        `${FIREBASE_API_DB}/users/${resData.localId}.json?auth=${resData.idToken}`
+                    )
+                } else {
+                    return of(false);
+                }
+            }),
+            switchMap((userData: UserModel) => {
+                if (userData && userData.email) {
+                    const expirationDate = new Date(
+                        getUTCLocalDate().getTime() + (parseInt(this._tempLoginResData.expiresIn) * 1000)
+                    );
+
+                    const user = new User(
+                        userData.firstName,
+                        userData.lastName,
+                        userData.email,
+                        this._tempLoginResData.localId,
+                        this._tempLoginResData.idToken,
+                        expirationDate
+                    );
+
+                    setString('userData', JSON.stringify(user));
+                    this.autoLogout(user.timeToExpiry);
+                    this._user.next(user);
+
+                    return of(true);
+                } else {
+                    return of(false);
+                }
+            })
+        );
+    }
+
+    register(registerData: RegisterData): Observable<boolean> {
+        if (!registerData.email || !registerData.password) return of(false);
 
         return this.httpClient.post(`${FIREBASE_API_URL}:signUp?key=${FIREBASE_API_KEY}`, {
             email: registerData.email,
@@ -103,9 +153,8 @@ export class AuthService {
                 this._handleError(errorRes.error.error.message);
                 return throwError(errorRes);
             }),
-            tap((resData: FirebaseAuthenticateResponse) => {
+            switchMap((resData: FirebaseAuthenticateResponse) => {
                 if (resData && resData.idToken) {
-
                     const expirationDate = new Date(
                         getUTCLocalDate().getTime() + (parseInt(resData.expiresIn) * 1000)
                     );
@@ -124,10 +173,16 @@ export class AuthService {
                     this._user.next(user);
                     this.registerService.setRegisterData(null);
 
-                    this.httpClient.put<UserModel>(
-                        `${FIREBASE_API_USERS_URL}/${user.id}.json?auth=${user.token}`,
-                        user
-                    );
+                    this.httpClient.put(
+                        `${FIREBASE_API_DB}/users/${user.id}.json?auth=${user.token}`, {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email
+                    }).subscribe();
+
+                    return of(true);
+                } else {
+                    return of(false);
                 }
             })
         );

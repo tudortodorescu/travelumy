@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { UIService } from '~/app/shared/ui/ui.service';
 import { UiRouterTransitionEffect } from '~/app/shared/common';
-import { Router } from '@angular/router';
+import { AuthService } from '~/app/auth/auth.service';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { User } from '~/app/auth/user.model';
 
 interface LandscapeModel {
     landscapeImage: string;
@@ -13,7 +16,20 @@ interface LandscapeModel {
     templateUrl: './home-screen.component.html',
     styleUrls: ['./home-screen.component.scss']
 })
-export class HomeScreenComponent implements OnInit {
+export class HomeScreenComponent implements OnInit, OnDestroy {
+    private _subscriptionList: Subscription[] = [];
+    private _user: User;
+
+    get user(): User {
+        return this._user;
+    }
+
+    get isAuth(): boolean {
+        if (!!this._user) {
+            return this.user.isAuth;
+        }
+        return false;
+    }
 
     landscapeList: LandscapeModel[] = [
         {
@@ -37,11 +53,24 @@ export class HomeScreenComponent implements OnInit {
     constructor(
         private page: Page,
         private uiService: UIService,
-        private router: Router
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
         this.page.actionBarHidden = true;
+        this._subscriptionList.push(
+            this.authService.user.pipe(filter(data => !!data)).subscribe((user: User) => {
+                this._user = user;
+            })
+        );
+    }
+
+    ngOnDestroy() {
+        if (this._subscriptionList.length > 0) {
+            this._subscriptionList.forEach((subscription: Subscription) => {
+                subscription.unsubscribe();
+            })
+        }
     }
 
     onLogin() {
@@ -50,6 +79,10 @@ export class HomeScreenComponent implements OnInit {
 
     onRegister() {
         this.uiService.navigateTo('auth/register', UiRouterTransitionEffect.slideRight);
+    }
+
+    onLogout() {
+        this.authService.logout();
     }
 
 }

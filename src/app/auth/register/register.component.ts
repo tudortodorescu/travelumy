@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { AuthService } from '../auth.service';
 import { UIService } from '~/app/shared/ui/ui.service';
-import { UiRouterTransitionEffect } from '~/app/shared/common';
+import { UiRouterTransitionEffect, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 import { RegisterService, RegisterData } from './register.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.form = new FormGroup({
+       this.form = new FormGroup({
             firstName: new FormControl(null, {
                 updateOn: 'change',
                 validators: [
@@ -127,6 +127,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
         if (!this.form.get('password').valid) this.passwordControlIsValid = false;
     }
 
+    private _dismissAllInputs() {
+        this.firstNameEl.nativeElement.dismissSoftInput();
+        this.lastNameEl.nativeElement.dismissSoftInput();
+        this.emailEl.nativeElement.dismissSoftInput();
+        this.passwordEl.nativeElement.dismissSoftInput();
+    }
+
     onTosPrivacy() {
         const registerData = this._buildRegisterData();
         this.registerService.setRegisterData(registerData);
@@ -137,21 +144,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this._checkFormControlsValid();
         if (!this.form.valid) return;
 
-        this.emailEl.nativeElement.dismissSoftInput();
-        this.passwordEl.nativeElement.dismissSoftInput();
-
+        this._dismissAllInputs();
         this._setIsLoading(true);
         this._setAllControlsToValid();
 
         const registerData = this._buildRegisterData();
-        this.authService.register(registerData).subscribe(() => {
+        this.authService.register(registerData).subscribe((result: boolean) => {
+            if (result === false) alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
+
             alert("Congratulations! You just signed-up and have access to all the cool features!");
-            this.uiService.navigateTo('home', UiRouterTransitionEffect.flip);
+            this.uiService.navigateTo('home', UiRouterTransitionEffect.flip, true);
             this._setIsLoading(false);
-        }, err => {
-            alert("OOOPS! Something bad happened. Don't worry our technical team will fix it and you'll be able to register soon.")
-            this._setIsLoading(false);
-        })
+        }, err => this._setIsLoading(false))
 
     }
 

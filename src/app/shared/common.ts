@@ -34,3 +34,9 @@ export function getUTCLocalDate(target?: Date): Date {
 
     return new Date(Date.UTC(Y, M, D, h, m + offset, s));
 };
+
+export const FIREBASE_API_KEY = 'AIzaSyB9TrLghrwxBYs8uVtmwJfN1JpCF6YJplY';
+export const FIREBASE_API_URL = 'https://identitytoolkit.googleapis.com/v1/accounts';
+export const FIREBASE_API_DB = 'https://travelumy.firebaseio.com';
+
+export const UNKNOWN_ERROR_DEFAULT_MESSAGE = `OOOPS! Something bad happened. Don't worry our technical team will fix it and you'll be able to register soon.`;

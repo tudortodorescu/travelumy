@@ -83,7 +83,7 @@ export class UIService {
     }
 
     goHome() {
-        this.routerExtensions.navigate([''], <NavigationOptions>{
+        this.routerExtensions.navigate(['/home'], <NavigationOptions>{
             transition: { name: UiRouterTransitionEffect.fade },
             animated: true,
             clearHistory: true

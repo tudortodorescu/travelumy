@@ -29,16 +29,27 @@
   </ScrollView>
   <FlexboxLayout class="bottom-container" row="2" col="0">
     <Button
+      text="Logout"
+      class="-rounded-md -primary secondary-bgcolor"
+      margin="0"
+      horizontalAlignment="center"
+      (tap)="onLogout()"
+      *ngIf="isAuth"
+    ></Button>
+
+    <Button
       text="Login"
       class="-rounded-md -primary secondary-bgcolor"
       margin="0"
       horizontalAlignment="center"
       (tap)="onLogin()"
+      *ngIf="!isAuth"
     ></Button>
     <Label
       class="third-color text-center"
       text="Or, register a FREE account now"
       (tap)="onRegister()"
+      *ngIf="!isAuth"
     ></Label>
   </FlexboxLayout>
 </GridLayout>
