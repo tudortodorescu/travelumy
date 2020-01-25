@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { UIService } from '~/app/shared/ui/ui.service';
-import { UiRouterTransitionEffect } from '~/app/shared/common';
+import { UiRouterTransitionEffect, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 import { AuthService } from '~/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { User } from '~/app/auth/user.model';
+import { HomeService } from '../home.service';
 
 interface LandscapeModel {
     landscapeImage: string;
@@ -19,6 +20,8 @@ interface LandscapeModel {
 export class HomeScreenComponent implements OnInit, OnDestroy {
     private _subscriptionList: Subscription[] = [];
     private _user: User;
+    isLoading: boolean = true;
+    landscapeList: LandscapeModel[] = [];
 
     get user(): User {
         return this._user;
@@ -31,29 +34,12 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
         return false;
     }
 
-    landscapeList: LandscapeModel[] = [
-        {
-            landscapeImage: 'https://www.aboutaustralia.com/wp-content/uploads/2011/09/Fiji_Travel_Packages.jpg',
-            landscapeCaption: 'Visit Beautiful Fiji'
-        },
-        {
-            landscapeImage: 'https://www.telegraph.co.uk/content/dam/Travel/leadAssets/31/92/mauritius1_3192576a.jpg',
-            landscapeCaption: 'Mauritius Islands'
-        },
-        {
-            landscapeImage: 'https://img.theculturetrip.com/768x432/wp-content/uploads/2017/09/9399060187_e512258e37_o.jpg',
-            landscapeCaption: 'Tropical Philippines'
-        },
-        {
-            landscapeImage: 'https://www.thetimes.co.uk/static/s3/thetimes-page-builder-prod/uploads/2017/06/YULE-IMAGE-2.jpg',
-            landscapeCaption: 'Thailand Paradise'
-        }
-    ];
-
     constructor(
         private page: Page,
+        private changeDetector: ChangeDetectorRef,
         private uiService: UIService,
-        private authService: AuthService
+        private authService: AuthService,
+        private homeService: HomeService
     ) { }
 
     ngOnInit() {
@@ -61,6 +47,16 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
         this._subscriptionList.push(
             this.authService.user.pipe(filter(data => !!data)).subscribe((user: User) => {
                 this._user = user;
+            }),
+            this.homeService.fetchLandscape().subscribe((result: boolean) => {
+                if (result) {
+                    this.isLoading = false;
+                    this.changeDetector.detectChanges();
+
+                } else alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
+            }, err => alert(UNKNOWN_ERROR_DEFAULT_MESSAGE)),
+            this.homeService.landscape.subscribe((landscape: LandscapeModel[]) => {
+                this.landscapeList = landscape;
             })
         );
     }

@@ -5,6 +5,7 @@ import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { AuthService } from '../auth.service';
 import { UIService } from '~/app/shared/ui/ui.service';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 
 @Component({
     selector: 'ns-forgot-password',
@@ -15,17 +16,18 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     private _subscriptionList: Subscription[] = [];
     form: FormGroup;
     isLoading: boolean = false;
+    isCompletedRequest: boolean;
     emailControlIsValid: boolean = true;
     @ViewChild('emailEl', { static: false }) emailEl: ElementRef<TextField>;
 
     constructor(
-        private router: RouterExtensions,
         private authService: AuthService,
         private changeDetection: ChangeDetectorRef,
         private uiService: UIService
     ) { }
 
     ngOnInit() {
+        this.isCompletedRequest = false;
         this.form = new FormGroup({
             email: new FormControl(null, {
                 updateOn: 'change',
@@ -45,6 +47,11 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         }
     }
 
+    private _setIsLoading(isLoading: boolean) {
+        this.isLoading = isLoading;
+        this.changeDetection.detectChanges();
+    }
+
     onSubmit() {
         if (!this.form.get('email').valid) {
             this.emailControlIsValid = false;
@@ -56,20 +63,18 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         this.changeDetection.detectChanges();
 
         const email = this.form.get('email').value;
-
         this.emailControlIsValid = true;
 
-        // to be implemented
-        // this.authService.forgotPassword(email).subscribe(() => {
-        //     this.isLoading = false;
-        //     this.changeDetection.detectChanges();
-        // }, err => {
-        //     this.isLoading = false;
-        //     this.changeDetection.detectChanges();
-        // })
+        this.authService.forgotPassword(email).subscribe((result: boolean) => {
+            if (!result) alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
+            this.isCompletedRequest = true;
+            this._setIsLoading(false);
+        }, err => this._setIsLoading(false));
 
     }
 
-
+    onGoBack() {
+        this.uiService.goLogin();
+    }
 
 }

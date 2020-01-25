@@ -10,12 +10,11 @@ import { setString, getString, hasKey, remove } from 'tns-core-modules/applicati
 import { UIService } from '../shared/ui/ui.service';
 import { FIREBASE_API_KEY, FIREBASE_API_URL, FIREBASE_API_DB, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 
-
-
 interface FirebaseAuthenticateRequest {
     email: string;
     password: string;
     returnSecureToken: boolean;
+    requestType: 'PASSWORD_RESET'
 }
 
 interface FirebaseAuthenticateResponse {
@@ -25,6 +24,7 @@ interface FirebaseAuthenticateResponse {
     expiresIn: string;
     localId: string;
     registered?: boolean;
+    kind: string;
 }
 
 @Injectable({
@@ -201,6 +201,24 @@ export class AuthService {
         if (this._tokenExpirationTimer) clearTimeout(this._tokenExpirationTimer);
         this.uiService.goLogin();
 
+    }
+
+    forgotPassword(email: string): Observable<boolean> {
+        if (!email) return of(false);
+        return this.httpClient.post(`${FIREBASE_API_URL}:sendOobCode?key=${FIREBASE_API_KEY}`, {
+            email: email,
+            requestType: 'PASSWORD_RESET'
+        } as FirebaseAuthenticateRequest).pipe(
+            catchError(errorRes => {
+                this._handleError(errorRes.error.error.message);
+                return throwError(errorRes);
+            }),
+            switchMap((resData: FirebaseAuthenticateResponse) => {
+                console.log('resData', resData);
+                const result: boolean = (resData && !!resData.email);
+                return of(result);
+            })
+        );
     }
 
 }

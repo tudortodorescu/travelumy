@@ -3,6 +3,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { Routes } from '@angular/router';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
     { path: 'home', loadChildren: () => HomeModule },
@@ -12,6 +13,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [NativeScriptRouterModule.forRoot(routes)],
-    exports: [NativeScriptRouterModule]
+    exports: [NativeScriptRouterModule],
+    providers: [AuthGuard]
 })
 export class AppRoutingModule { }

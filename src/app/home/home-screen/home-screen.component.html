@@ -1,4 +1,4 @@
-<GridLayout rows="auto,*,90" columns="*">
+<GridLayout rows="auto,*,90" columns="*" *ngIf="!isLoading">
   <FlexboxLayout class="home-screen-main-page" row="0" col="0">
     <ns-app-icon></ns-app-icon>
     <AbsoluteLayout class="search-location animation-fadein animation-pulsate">
@@ -53,3 +53,6 @@
     ></Label>
   </FlexboxLayout>
 </GridLayout>
+<FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading">
+  <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+</FlexboxLayout>
