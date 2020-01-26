@@ -43,7 +43,9 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
+        this.authService.autoLogin();
         this.page.actionBarHidden = true;
+
         this._subscriptionList.push(
             this.authService.user.pipe(filter(data => !!data)).subscribe((user: User) => {
                 this._user = user;
