@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { AuthService } from '../auth.service';
 import { UIService } from '~/app/shared/ui/ui.service';
-import { UiRouterTransitionEffect, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
+import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 import { RegisterService, RegisterData } from './register.service';
 
 @Component({
@@ -137,7 +137,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     onTosPrivacy() {
         const registerData = this._buildRegisterData();
         this.registerService.setRegisterData(registerData);
-        this.uiService.navigateTo('auth/tos-privacy-tabs', UiRouterTransitionEffect.slideTop);
+        this.uiService.navigateTo('auth/tos-privacy-tabs', 'slideTop');
     }
 
     onSubmit() {
@@ -153,7 +153,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             if (result === false) alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
 
             alert("Congratulations! You just signed-up and have access to all the cool features!");
-            this.uiService.navigateTo('home', UiRouterTransitionEffect.flip, true);
+            this.uiService.goHome();
             this._setIsLoading(false);
         }, err => this._setIsLoading(false))
 

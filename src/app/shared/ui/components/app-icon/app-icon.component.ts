@@ -1,6 +1,5 @@
-import { Component, ViewRef, ChangeDetectorRef } from '@angular/core';
-import { UIService } from '../ui.service';
-import { UiRouterTransitionEffect } from '../../common';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { UIService } from '../../ui.service';
 import * as app from 'tns-core-modules/application'
 import { getOrientation } from 'nativescript-orientation';
 
@@ -14,8 +13,7 @@ export class AppIconComponent {
 
     constructor(
         private uiService: UIService,
-        private changeDetector: ChangeDetectorRef,
-        // private view: ViewRef
+        private changeDetector: ChangeDetectorRef
     ) {
         this.isPortrait = (getOrientation() === 'portrait');
         app.on('launch', (event) => this.orientationHandling(event));
@@ -30,7 +28,7 @@ export class AppIconComponent {
     }
 
     onAppIcon() {
-        this.uiService.navigateTo('home', UiRouterTransitionEffect.fade);
+        this.uiService.goHome();
     }
 
 }

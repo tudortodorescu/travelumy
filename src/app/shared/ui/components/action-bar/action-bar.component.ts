@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Page, isAndroid, isIOS } from 'tns-core-modules/ui/page/page';
-import { UIService } from '../ui.service';
-import { UiThemeColors } from '../../common';
+import { UIService } from '../../ui.service';
+import { UiThemeColors } from '../../../common';
 
 declare var android: any;
 
@@ -23,12 +23,8 @@ export class ActionBarComponent {
         private uiService: UIService
     ) { }
 
-    get previousRoute() {
-        return this.uiService.previousRoute;
-    }
-
     get canGoBack() {
-        return this.showBackButton && this.previousRoute;
+        return this.showBackButton && this.uiService.canGoBack();
     }
 
     onLoadedActionBar() {

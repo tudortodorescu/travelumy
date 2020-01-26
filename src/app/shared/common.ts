@@ -11,7 +11,7 @@ export enum UiRouterTransitionEffect {
     slideLeft = 'slideLeft',
     slideRight = 'slideRight',
     slideTop = 'slideTop',
-    slideBottom ='slideBottom'
+    slideBottom = 'slideBottom'
 }
 
 export enum UiThemeColors {
@@ -39,4 +39,4 @@ export const FIREBASE_API_KEY = 'AIzaSyB9TrLghrwxBYs8uVtmwJfN1JpCF6YJplY';
 export const FIREBASE_API_URL = 'https://identitytoolkit.googleapis.com/v1/accounts';
 export const FIREBASE_API_DB = 'https://travelumy.firebaseio.com';
 
-export const UNKNOWN_ERROR_DEFAULT_MESSAGE = `OOOPS! Something bad happened. Don't worry our technical team will fix it and you'll be able to register soon.`;
+export const UNKNOWN_ERROR_DEFAULT_MESSAGE = `OOOPS! Something bad happened. Don't worry our technical team will fix it soon.`;

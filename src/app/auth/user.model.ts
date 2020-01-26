@@ -2,12 +2,12 @@ import { getUTCLocalDate } from "../shared/common";
 
 export class User {
     constructor(
-        public firstName: string,
-        public lastName: string,
-        public email: string,
-        public id: string,
-        private _token: string,
-        private _tokenExpirationDate: Date
+        public readonly firstName: string,
+        public readonly lastName: string,
+        public readonly email: string,
+        public readonly id: string,
+        private readonly _token: string,
+        private readonly _tokenExpirationDate: Date
     ) {}
 
     get fullName() {

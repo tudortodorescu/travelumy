@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { UIService } from '~/app/shared/ui/ui.service';
-import { UiRouterTransitionEffect, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
+import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 import { AuthService } from '~/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -72,11 +72,11 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     }
 
     onLogin() {
-        this.uiService.navigateTo('auth/login', UiRouterTransitionEffect.slideRight);
+        this.uiService.navigateTo('auth/login');
     }
 
     onRegister() {
-        this.uiService.navigateTo('auth/register', UiRouterTransitionEffect.slideRight);
+        this.uiService.navigateTo('auth/register');
     }
 
     onLogout() {

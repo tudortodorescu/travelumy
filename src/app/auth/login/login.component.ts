@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { AuthService } from '../auth.service';
-import { UiRouterTransitionEffect, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
+import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 import { UIService } from '~/app/shared/ui/ui.service';
 
 @Component({
@@ -83,18 +83,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(email, password).subscribe((result: boolean) => {
             if (result === false) alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
 
-            this.uiService.navigateTo('home', UiRouterTransitionEffect.flip, true);
+            this.uiService.goHome();
             this._setIsLoading(false);
         }, err => this._setIsLoading(false));
 
     }
 
     onForgotPassword() {
-        this.uiService.navigateTo('auth/forgot-password', UiRouterTransitionEffect.slideRight);
+        this.uiService.navigateTo('auth/forgot-password');
     }
 
     onRegister() {
-        this.uiService.navigateTo('auth/register', UiRouterTransitionEffect.slideRight);
+        this.uiService.navigateTo('auth/register');
     }
 
 }
