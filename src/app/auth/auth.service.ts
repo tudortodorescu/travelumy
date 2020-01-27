@@ -7,8 +7,8 @@ import { alert } from 'tns-core-modules/ui/dialogs';
 import { getUTCLocalDate } from '~/app/shared/common';
 import { User, UserModel } from './user.model';
 import { setString, getString, hasKey, remove } from 'tns-core-modules/application-settings';
-import { UIService } from '../shared/ui/ui.service';
 import { FIREBASE_API_KEY, FIREBASE_API_URL, FIREBASE_API_DB, UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
+import { NavigateService } from '../shared/ui/services/navigate/navigate.service';
 
 interface FirebaseAuthenticateRequest {
     email: string;
@@ -37,7 +37,7 @@ export class AuthService {
 
     constructor(
         private httpClient: HttpClient,
-        private uiService: UIService,
+        private navigateService: NavigateService,
         private registerService: RegisterService
     ) { }
 
@@ -199,7 +199,7 @@ export class AuthService {
         this._user.next(null);
         remove('userData');
         if (this._tokenExpirationTimer) clearTimeout(this._tokenExpirationTimer);
-        this.uiService.goLogin();
+        this.navigateService.goLogin();
 
     }
 
@@ -214,7 +214,6 @@ export class AuthService {
                 return throwError(errorRes);
             }),
             switchMap((resData: FirebaseAuthenticateResponse) => {
-                console.log('resData', resData);
                 const result: boolean = (resData && !!resData.email);
                 return of(result);
             })

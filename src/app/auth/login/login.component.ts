@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field';
 import { AuthService } from '../auth.service';
 import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
-import { UIService } from '~/app/shared/ui/ui.service';
+import { NavigateService } from '~/app/shared/ui/services/navigate/navigate.service';
 
 @Component({
     selector: 'ns-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(
         private authService: AuthService,
         private changeDetection: ChangeDetectorRef,
-        private uiService: UIService
+        private navigateService: NavigateService
     ) { }
 
     ngOnInit() {
@@ -83,18 +83,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(email, password).subscribe((result: boolean) => {
             if (result === false) alert(UNKNOWN_ERROR_DEFAULT_MESSAGE);
 
-            this.uiService.goHome();
+            this.navigateService.goHome();
             this._setIsLoading(false);
         }, err => this._setIsLoading(false));
 
     }
 
     onForgotPassword() {
-        this.uiService.navigateTo('auth/forgot-password');
+        this.navigateService.navigateTo('auth/forgot-password');
     }
 
     onRegister() {
-        this.uiService.navigateTo('auth/register');
+        this.navigateService.navigateTo('auth/register');
     }
 
 }

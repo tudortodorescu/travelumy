@@ -4,6 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { ActionBarComponent } from './components/action-bar/action-bar.component';
 import { AppIconComponent } from './components/app-icon/app-icon.component';
 import { NavigateService } from "./services/navigate/navigate.service";
+import { NavigateHistory } from "./services/navigate/navigate.history";
 
 @NgModule({
     imports: [
@@ -18,7 +19,10 @@ import { NavigateService } from "./services/navigate/navigate.service";
         ActionBarComponent,
         AppIconComponent
     ],
-    providers: [NavigateService],
+    providers: [
+        NavigateService,
+        NavigateHistory
+    ],
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class SharedUiModule { }

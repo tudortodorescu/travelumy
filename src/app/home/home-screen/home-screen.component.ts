@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
-import { UIService } from '~/app/shared/ui/ui.service';
 import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
 import { AuthService } from '~/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { User } from '~/app/auth/user.model';
 import { HomeService } from '../home.service';
+import { NavigateService } from '~/app/shared/ui/services/navigate/navigate.service';
 
 interface LandscapeModel {
     landscapeImage: string;
@@ -37,7 +37,7 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     constructor(
         private page: Page,
         private changeDetector: ChangeDetectorRef,
-        private uiService: UIService,
+        private navigateService: NavigateService,
         private authService: AuthService,
         private homeService: HomeService
     ) { }
@@ -72,11 +72,11 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     }
 
     onLogin() {
-        this.uiService.navigateTo('auth/login');
+        this.navigateService.navigateTo('auth/login');
     }
 
     onRegister() {
-        this.uiService.navigateTo('auth/register');
+        this.navigateService.navigateTo('auth/register');
     }
 
     onLogout() {

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { UIService } from '../../ui.service';
 import * as app from 'tns-core-modules/application'
 import { getOrientation } from 'nativescript-orientation';
+import { NavigateService } from '../../services/navigate/navigate.service';
 
 @Component({
     selector: 'ns-app-icon',
@@ -12,7 +12,7 @@ export class AppIconComponent {
     isPortrait: boolean;
 
     constructor(
-        private uiService: UIService,
+        private navigateService: NavigateService,
         private changeDetector: ChangeDetectorRef
     ) {
         this.isPortrait = (getOrientation() === 'portrait');
@@ -28,7 +28,7 @@ export class AppIconComponent {
     }
 
     onAppIcon() {
-        this.uiService.goHome();
+        this.navigateService.goHome();
     }
 
 }

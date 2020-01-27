@@ -4,14 +4,14 @@ import { take, switchMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { User } from './user.model';
-import { UIService } from '../shared/ui/ui.service';
+import { NavigateService } from '../shared/ui/services/navigate/navigate.service';
 
 @Injectable()
 export class AuthGuard implements CanLoad {
 
     constructor(
         private authService: AuthService,
-        private uiService: UIService
+        private navigateService: NavigateService
     ) { }
 
     canLoad(route?: Route, segments?: UrlSegment[]): Observable<boolean> {
@@ -25,7 +25,7 @@ export class AuthGuard implements CanLoad {
             }),
             tap((isAuth: boolean) => {
                 if (!isAuth) {
-                    this.uiService.goLogin();
+                    this.navigateService.goLogin();
                 }
             })
         )

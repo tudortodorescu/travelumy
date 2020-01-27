@@ -3,9 +3,8 @@ import { Subscription } from 'rxjs';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { TextField } from 'tns-core-modules/ui/text-field/text-field';
 import { AuthService } from '../auth.service';
-import { UIService } from '~/app/shared/ui/ui.service';
-import { RouterExtensions } from 'nativescript-angular/router';
 import { UNKNOWN_ERROR_DEFAULT_MESSAGE } from '~/app/shared/common';
+import { NavigateService } from '~/app/shared/ui/services/navigate/navigate.service';
 
 @Component({
     selector: 'ns-forgot-password',
@@ -23,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     constructor(
         private authService: AuthService,
         private changeDetection: ChangeDetectorRef,
-        private uiService: UIService
+        private navigateService: NavigateService
     ) { }
 
     ngOnInit() {
@@ -74,7 +73,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }
 
     onGoBack() {
-        this.uiService.goLogin();
+        this.navigateService.goLogin();
     }
 
 }

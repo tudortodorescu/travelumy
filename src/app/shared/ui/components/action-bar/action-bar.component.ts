@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Page, isAndroid, isIOS } from 'tns-core-modules/ui/page/page';
 import { UIService } from '../../ui.service';
 import { UiThemeColors } from '../../../common';
+import { NavigateService } from '../../services/navigate/navigate.service';
 
 declare var android: any;
 
@@ -20,11 +21,12 @@ export class ActionBarComponent {
 
     constructor(
         private page: Page,
-        private uiService: UIService
+        private uiService: UIService,
+        private navigateService: NavigateService
     ) { }
 
     get canGoBack() {
-        return this.showBackButton && this.uiService.canGoBack();
+        return this.showBackButton && this.navigateService.canGoBack();
     }
 
     onLoadedActionBar() {
@@ -40,15 +42,16 @@ export class ActionBarComponent {
         }
     }
 
-    onGoBack() {
-        this.uiService.goBack();
-    }
-
     onToggleMenu() {
         this.uiService.toggleDrawer();
     }
 
-    onHome() {
-        this.uiService.goHome();
+    onBack() {
+        this.navigateService.goBack();
     }
+
+    onHome() {
+        this.navigateService.goHome();
+    }
+
 }
