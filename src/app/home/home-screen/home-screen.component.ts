@@ -5,13 +5,9 @@ import { AuthService } from '~/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { User } from '~/app/auth/user.model';
-import { HomeService } from '../home.service';
+import { HomeService, LandscapeModel } from '../home.service';
 import { NavigateService } from '~/app/shared/ui/services/navigate/navigate.service';
 
-interface LandscapeModel {
-    landscapeImage: string;
-    landscapeCaption: string;
-}
 @Component({
     selector: 'ns-home-screen',
     templateUrl: './home-screen.component.html',
@@ -69,6 +65,10 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
                 subscription.unsubscribe();
             })
         }
+    }
+
+    onSearchLocation() {
+        this.navigateService.navigateTo('home/google-location');
     }
 
     onLogin() {

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ChangeDetectorRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
 import { NavigationOptions } from '@nativescript/angular/router/ns-location-strategy';
@@ -21,7 +21,9 @@ export enum NavigateTransitionEffect {
     slideBottom = 'slideBottom'
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NavigateService {
     private readonly _defaultTransitionEffect = NavigateTransitionEffect.slideRight;
 
@@ -78,4 +80,5 @@ export class NavigateService {
     canGoBack(): boolean {
         return this.navigateHistory.hasHistory();
     }
+
 }

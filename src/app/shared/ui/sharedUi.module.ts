@@ -3,8 +3,6 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { ActionBarComponent } from './components/action-bar/action-bar.component';
 import { AppIconComponent } from './components/app-icon/app-icon.component';
-import { NavigateService } from "./services/navigate/navigate.service";
-import { NavigateHistory } from "./services/navigate/navigate.history";
 
 @NgModule({
     imports: [
@@ -19,10 +17,7 @@ import { NavigateHistory } from "./services/navigate/navigate.history";
         ActionBarComponent,
         AppIconComponent
     ],
-    providers: [
-        NavigateService,
-        NavigateHistory
-    ],
+    providers: [],
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class SharedUiModule { }

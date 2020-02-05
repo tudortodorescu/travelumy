@@ -1,9 +1,10 @@
 <GridLayout rows="auto,*,90" columns="*" *ngIf="!isLoading">
   <FlexboxLayout class="home-screen-main-page" row="0" col="0">
     <ns-app-icon></ns-app-icon>
-    <AbsoluteLayout class="search-location animation-fadein animation-pulsate">
-      <Label text="&#xf59f;" class="fas search-icon"></Label>
-      <TextField class="search-input" hint="Where To?"></TextField>
+    <AbsoluteLayout class="search-location animation-fadein animation-pulsate" (tap)="onSearchLocation()">
+      <Label text="&#xf002;" class="fas search-icon"></Label>
+      <!-- <TextField class="search-input" hint="Where To?" (tap)="onSearchLocation()"></TextField> -->
+      <Label class="search-input" text="Where To?"></Label>
     </AbsoluteLayout>
   </FlexboxLayout>
   <ScrollView class="main-container" row="1" col="0">

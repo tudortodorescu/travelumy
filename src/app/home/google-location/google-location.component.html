@@ -1,0 +1,18 @@
+<ScrollView>
+    <StackLayout orientation="vertical" paddingTop="25" class="google-location-container">
+        <AbsoluteLayout class="search-location" [formGroup]="form">
+            <Label text="&#xf060;" class="fas search-icon" (tap)="onBack()" *ngIf="canGoBack"></Label>
+            <TextField class="search-input" hint="Where To?" formControlName="location" #locationEl></TextField>
+            {{ locationEl.focus() }}
+        </AbsoluteLayout>
+        <FlexboxLayout class="list-app-icon" *ngIf="locations.length === 0">
+            <ns-app-icon></ns-app-icon>
+        </FlexboxLayout>
+        <FlexboxLayout class="list-locations" *ngIf="locations.length > 0">
+            <StackLayout *ngFor="let location of locations" (tap)="onSelectLocation(location)" class="animation-fadein">
+                <Label class="main-text" [text]="location.mainText"></Label>
+                <Label class="secondary-text" [text]="location.secondaryText"></Label>
+            </StackLayout>
+        </FlexboxLayout>
+    </StackLayout>
+</ScrollView>

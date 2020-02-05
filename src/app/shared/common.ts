@@ -25,4 +25,7 @@ export const FIREBASE_API_KEY = 'AIzaSyB9TrLghrwxBYs8uVtmwJfN1JpCF6YJplY';
 export const FIREBASE_API_URL = 'https://identitytoolkit.googleapis.com/v1/accounts';
 export const FIREBASE_API_DB = 'https://travelumy.firebaseio.com';
 
+export const GOOGLE_LOCATION_URL = 'https://maps.googleapis.com/maps/api';
+export const GOOGLE_LOCATION_API_KEY = 'AIzaSyCYqtouDSeo7wiVREtFqiUzGlw-TqU5PDg';
+
 export const UNKNOWN_ERROR_DEFAULT_MESSAGE = `OOOPS! Something bad happened. Don't worry our technical team will fix it soon.`;

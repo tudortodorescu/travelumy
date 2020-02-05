@@ -1,7 +1,9 @@
 import { NavigateState } from "./navigate.state";
 import { Injectable } from "@angular/core";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NavigateHistory {
     private navigateState: NavigateState[] = [];
 

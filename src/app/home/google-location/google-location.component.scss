@@ -1,0 +1,72 @@
+@import "../../../theme/colors";
+
+StackLayout.google-location-container {
+  AbsoluteLayout.search-location {
+    margin: 0;
+    padding: 0;
+    border-bottom-color: $primary;
+    border-bottom-width: 3;
+    height: 60;
+
+    Label.search-icon {
+      top: 18;
+      left: 20;
+      color: $primary;
+      font-size: 20;
+      z-index: 1;
+    }
+    Label.delete-icon {
+      top: 18;
+      right: 20;
+      color: $primary;
+      font-size: 20;
+      z-index: 1;
+    }
+    
+    TextField.search-input {
+      width: 100%;
+      margin: 0;
+      padding: 15 60;
+      left: 0;
+      font-size: 26;
+      text-decoration: none;
+      font-family: "Camping Holiday";
+      letter-spacing: 0.05;
+      z-index: 0;
+      color: $secondary;
+    }
+  }
+
+  FlexboxLayout.list-app-icon {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30 0 10 0;
+  }
+
+  FlexboxLayout.list-locations {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-bottom: 300;
+    StackLayout {
+      padding: 10 15;
+      margin: 0;
+      border-bottom-width: 1;
+      border-bottom-color: $primary;
+      width: 100%;
+      Label.main-text {
+        font-size: 26;
+        color: $secondary;
+        font-family: "Camping Holiday";
+        letter-spacing: 0.05;
+      }
+      Label.secondary-text {
+        font-size: 20;
+        color: $primary;
+        font-family: "Camping Holiday";
+        letter-spacing: 0.05;
+      }
+    }
+  }
+}

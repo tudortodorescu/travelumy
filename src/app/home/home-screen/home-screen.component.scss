@@ -11,7 +11,7 @@ GridLayout {
       margin: 20px 0;
       padding: 0;
       width: 80%;
-      height: auto;
+      height: 60;
 
       Label.search-icon {
         top: 18;
@@ -19,7 +19,7 @@ GridLayout {
         color: $gray;
         font-size: 20;
       }
-      TextField.search-input {
+      Label.search-input {
         width: 100%;
         margin: 0;
         border-width: 1;
