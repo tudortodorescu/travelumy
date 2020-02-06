@@ -1,1 +1,136 @@
-/* Add mobile styles for the component here.  */
+@import "../../../theme/colors";
+
+ScrollView.main {
+  width: 100%;
+  height: 100%;
+
+  FlexboxLayout.main-container {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15;
+    margin-top: 30;
+    width: 100%;
+
+    FlexboxLayout.top-menu {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 15;
+      margin-bottom: 20;
+
+      .top-main-text {
+        font-size: 35;
+        color: $secondary;
+        font-weight: bold;
+        font-family: "Camping Holiday";
+        letter-spacing: 0.05;
+      }
+
+      .top-secondary-text {
+        font-size: 21;
+        color: $secondary;
+        font-family: "Camping Holiday";
+        letter-spacing: 0.05;
+      }
+
+      .top-button {
+          Button {
+              width: 120;
+              font-size: 14;
+              padding: 3 5;
+          }
+      }
+    }
+
+    .from-to-dates {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      width: 90%;
+
+      FlexboxLayout {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        label.date-icon,
+        label.date-label {
+          font-weight: bold;
+          color: $primary;
+        }
+        label.date-icon-middle {
+          color: $secondary;
+          font-weight: bold;
+          font-size: 28;
+        }
+        label.date-label,
+        label.date-value {
+          font-family: "Camping Holiday";
+          letter-spacing: 0.05;
+        }
+        label.date-icon,
+        label.date-label,
+        label.date-value {
+          margin-right: 5;
+          font-size: 18;
+        }
+      }
+    }
+
+    .alert-box, .days-box {
+        font-size: 16;
+        width: 90%;
+        padding: 5 15;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 5;
+    }
+    .alert-box {
+      background-color: #ffe7e6;
+      color: #454545;
+    }
+
+    .days-box {
+        background-color: #e9ffe6;
+        color: #454545;
+      }
+
+    .select-date {
+      border-color: $secondary;
+      border-width: 5;
+      border-radius: 10;
+      width: 90%;
+      height: 175;
+
+      label {
+        color: $primary;
+        font-size: 23;
+        font-weight: bold;
+        padding: 0;
+        margin: 10 0 0 0;
+        background-color: white;
+        height: 25;
+        z-index: 1;
+        border-width: 0;
+        text-align: center;
+        font-family: "Camping Holiday";
+        letter-spacing: 0.05;
+      }
+      DatePicker {
+        margin: 0;
+        padding: 0;
+        z-index: 0;
+        height: 150;
+      }
+    }
+
+    button {
+      width: 80%;
+      margin-top: -5;
+      font-size: 16;
+      font-weight: bold;
+    }
+  }
+}

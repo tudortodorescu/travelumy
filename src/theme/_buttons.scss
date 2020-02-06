@@ -1,0 +1,42 @@
+.primary-color,
+.primary-color:highlighted {
+  color: $primary;
+}
+
+.primary-bgcolor,
+.primary-bgcolor:highlighted {
+  background: $primary;
+  color: white;
+}
+
+.secondary-color,
+.secondary-color:highlighted {
+  color: $secondary;
+}
+
+.secondary-bgcolor,
+.secondary-bgcolor:highlighted {
+  background: $secondary;
+  color: white;
+}
+
+.third-color,
+.third-color:highlighted {
+  color: $third;
+}
+
+.third-bgcolor,
+.third-bgcolor:highlighted {
+  background: $third;
+  color: white;
+}
+
+.gray-color,
+.gray-color:highlighted {
+  color: $gray;
+}
+
+.gray-bgcolor,
+.gray-bgcolor:highlighted {
+  background: $gray;
+}

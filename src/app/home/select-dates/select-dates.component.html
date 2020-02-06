@@ -1,4 +1,84 @@
-<StackLayout>
-    <Label [text]="location.mainText"></Label>
-    <Label [text]="location.secondaryText"></Label>
-</StackLayout>
+<Scrollview class="main">
+    <FlexboxLayout class="main-container">
+        <FlexboxLayout class="top-menu">
+            <StackLayout class="top-text">
+                <Label class="top-main-text" textWrap="false" [text]="location.mainText"></Label>
+                <Label class="top-secondary-text" textWrap="false" [text]="location.secondaryText"></Label>
+            </StackLayout>
+            <StackLayout class="top-button">
+                <Button class="primary-bgcolor" (tap)="onChangeLocation()">
+                    <FormattedString textWrap="true">
+                        <Span text="&#xf002;" class="fas"></Span>
+                        <Span text=" Search..."></Span>
+                    </FormattedString>
+                </Button>
+            </StackLayout>
+        </FlexboxLayout>
+        <StackLayout height="90">
+            <Label [ngClass]="{'hidden': hideTotalDaysLabel()}" class="days-box">
+                <FormattedString textWrap="true">
+                    <Span text="&#xf584;" class="far"></Span>
+                    <Span [text]="' ' + totalDays + ' Travelumy Days'"></Span>
+                </FormattedString>
+            </Label>
+            <FlexboxLayout class="from-to-dates">
+                <FlexboxLayout>
+                    <Label class="date-icon fas" text="&#xf133;"></Label>
+                    <Label class="date-label" text="From:"></Label>
+                    <Label class="date-value" [text]="((checkinDate === null) ? '-' : (checkinDate | date))"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout>
+                    <Label class="date-icon-middle fas" text="&#xf30b;"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout>
+                    <Label class="date-icon fas" text="&#xf133;"></Label>
+                    <Label class="date-label" text="To:"></Label>
+                    <Label class="date-value" [text]="((checkoutDate === null) ? '-' : (checkoutDate | date))"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <Label
+                [ngClass]="{'hidden': !showAlert}"
+                class="alert-box"
+                textWrap="true"
+                text="Please choose a check-out date bigger than the check-in date">
+            </Label>
+        </StackLayout>
+        <StackLayout>
+            <StackLayout class="select-date" marginTop="0">
+                <Label text="Choose Check-In Date"></Label>
+                <DatePicker
+                    [year]="fromYear"
+                    [month]="fromMonth"
+                    [day]="fromDay"
+                    [minDate]="fromMinDate"
+                    [maxDate]="fromMaxDate"
+                    (dateChange)="onFromDateChanged($event)"
+                    #fromDateEl>
+                </DatePicker>
+            </StackLayout>
+            <StackLayout class="select-date" marginTop="15">
+                <Label text="Choose Check-Out Date"></Label>
+                <DatePicker
+                    [year]="toYear"
+                    [month]="toMonth"
+                    [day]="toDay"
+                    [minDate]="toMinDate"
+                    [maxDate]="toMaxDate"
+                    (dateChange)="onToDateChanged($event)"
+                    #toDateEl>
+                </DatePicker>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout height="120" paddingTop="20">
+            <Button 
+                class="-rounded-md primary-bgcolor"
+                (tap)="onNoDates()" text="I don't have specific dates">
+            </Button>
+            <Button 
+                *ngIf="showResultsBtn()"
+                class="-rounded-md secondary-bgcolor animation-fadein"
+                (tap)="onViewResults()" text="View Results (6)">
+            </Button>
+        </StackLayout>
+    </FlexboxLayout>
+</Scrollview>

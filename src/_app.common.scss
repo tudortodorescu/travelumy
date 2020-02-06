@@ -3,6 +3,7 @@
 @import './theme/colors';
 @import './theme/animations';
 @import './theme/forms';
+@import './theme/buttons';
 
 .far {
   font-family: 'Font Awesome 5 Free', 'fa-regular-400';
@@ -12,38 +13,6 @@
 .fas {
   font-family: 'Font Awesome 5 Free', 'fa-solid-900';
   font-weight: 900;
-}
-
-.primary-color {
-  color: $primary;
-}
-
-.primary-bgcolor {
-  background: $primary;
-}
-
-.secondary-color {
-  color: $secondary;
-}
-
-.secondary-bgcolor, .secondary-bgcolor:active {
-  background: $secondary;
-}
-
-.third-color {
-  color: $third;
-}
-
-.third-bgcolor {
-  background: $third;
-}
-
-.gray-color {
-  color: $gray;
-}
-
-.gray-bgcolor {
-  background: $gray;
 }
 
 .text-underline {
@@ -66,4 +35,8 @@
 
 .hidden {
   display: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
 }
